@@ -13,7 +13,6 @@ export interface Tab {
 export class DashboardHeader {
   @Output() tabChanged = new EventEmitter<string>();
   @Output() exportClicked = new EventEmitter<void>();
-  @Output() addProductClicked = new EventEmitter<void>();
 
   onFilterTabClick(status: string) {
     this.tabChanged.emit(status);
@@ -37,10 +36,4 @@ export class DashboardHeader {
     this.exportClicked.emit();
     console.log('Export clicked');
   }
-
-  onAddProduct(): void {
-    this.addProductClicked.emit();
-    console.log('Add Product clicked');
-  }
-
 }

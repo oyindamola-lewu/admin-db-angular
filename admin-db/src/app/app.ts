@@ -6,7 +6,12 @@ import { Header } from './layout/header/header';
 import { DashboardHeader } from './layout/dashboard-header/dashboard-header';
 @Component({
   selector: 'app-root',
-  imports: [Sidebar, Header, DashboardHeader, ProductListComponent],
+  imports: [
+    Sidebar,
+    Header,
+    DashboardHeader,
+    ProductListComponent,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -17,5 +22,7 @@ export class App {
 
   onTabChange(status: string) {
     this.currentStatus = status;
+  
   }
+
 }

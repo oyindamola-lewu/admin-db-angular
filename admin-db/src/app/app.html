@@ -9,7 +9,10 @@
 
     <!-- Dynamic Page Content -->
     <section class="page-content">
-<app-dashboard-header (tabChanged)="onTabChange($event)"></app-dashboard-header>
-<app-products [selectedStatusFilter]="currentStatus"></app-products>    </section>
+      <app-dashboard-header (tabChanged)="onTabChange($event)">
+      </app-dashboard-header>
+
+      <app-products [selectedStatusFilter]="currentStatus"></app-products>
+    </section>
   </main>
 </div>
