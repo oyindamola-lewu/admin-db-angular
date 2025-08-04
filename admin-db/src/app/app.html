@@ -5,14 +5,16 @@
 
   <!-- Main Content -->
   <main class="main-content">
-    <!-- Header Component -->
-    <app-header></app-header>
-
+    <!-- Header Component     <app-header (searchChanged)="onSearchChange($event)"></app-header>
+-->
     <!-- Dynamic Page Content -->
     <section class="page-content">
       <app-dashboard-header (tabChanged)="onTabChange($event)">
       </app-dashboard-header>
-      <app-products [selectedStatusFilter]="currentStatus"></app-products>
+      <app-products
+        [selectedStatusFilter]="currentStatus"
+        [searchQuery]="searchQuery"
+      ></app-products>
     </section>
   </main>
 </div>

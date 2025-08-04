@@ -25,4 +25,10 @@ export class App {
   
   }
 
+  searchQuery: string = '';
+
+onSearchChange(query: string) {
+  this.searchQuery = query;
+}
+
 }

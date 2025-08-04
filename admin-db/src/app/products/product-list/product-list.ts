@@ -10,8 +10,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
   @Input() selectedStatusFilter: string | null = null;
-  @Input() searchQuery: string = '';
-
+@Input() searchQuery: string = '';
   products: Product[] = [];
 
   currentPage: number = 1;
