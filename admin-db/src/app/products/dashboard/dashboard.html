@@ -1,0 +1,8 @@
+<section class="page-content">
+  <app-dashboard-header (tabChanged)="onTabChange($event)">
+  </app-dashboard-header>
+  <app-products
+    [selectedStatusFilter]="currentStatus"
+    [searchQuery]="searchQuery"
+  ></app-products>
+</section>

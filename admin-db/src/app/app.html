@@ -1,20 +1,10 @@
 <div class="dashboard-container">
-  <!-- Sidebar Component -->
+  <!-- Sidebar -->
   <app-sidebar></app-sidebar>
-  <router-outlet></router-outlet>
 
-  <!-- Main Content -->
+  <!-- Main Content Area -->
   <main class="main-content">
-    <!-- Header Component     <app-header (searchChanged)="onSearchChange($event)"></app-header>
--->
-    <!-- Dynamic Page Content -->
-    <section class="page-content">
-      <app-dashboard-header (tabChanged)="onTabChange($event)">
-      </app-dashboard-header>
-      <app-products
-        [selectedStatusFilter]="currentStatus"
-        [searchQuery]="searchQuery"
-      ></app-products>
-    </section>
+    
+    <router-outlet></router-outlet>
   </main>
 </div>

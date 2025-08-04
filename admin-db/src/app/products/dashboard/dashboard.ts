@@ -1,23 +1,21 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ProductListComponent } from './products/product-list/product-list';
-import { Sidebar } from './layout/sidebar/sidebar';
-import { Header } from './layout/header/header';
-import { DashboardHeader } from './layout/dashboard-header/dashboard-header';
-import { Router } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
+import { ProductListComponent } from '../product-list/product-list';
+import { DashboardHeader } from '../../layout/dashboard-header/dashboard-header';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-inventory',
   imports: [
-    Sidebar,
-    Header,
+
     DashboardHeader,
     ProductListComponent, RouterOutlet
   ],
-  templateUrl: './app.html',
-  styleUrl: './app.scss',
+  templateUrl: './dashboard.html',
+  styleUrl: './dashboard.scss',
+    standalone: true,
+
 })
-export class App {
+export class ProductsHome {
 isHome = true;
 
 constructor(private router: Router) {
