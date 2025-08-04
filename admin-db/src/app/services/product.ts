@@ -1,8 +1,7 @@
-// product.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-interface Product {
+export interface Product {
   id: number;
   name: string;
   status: 'active' | 'draft' | 'archived';
@@ -14,108 +13,64 @@ interface Product {
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
-  private _products = new BehaviorSubject<Product[]>([
-    {
-      id: 1,
-      name: 'Smartphone X Pro',
-      status: 'active',
-      price: 999.0,
-      totalSales: 150,
-      createdAt: '7/22/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 2,
-      name: 'Wireless Earbuds Ultra',
-      status: 'active',
-      price: 199.0,
-      totalSales: 300,
-      createdAt: '7/22/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 3,
-      name: 'Smart Home Hub',
-      status: 'active',
-      price: 149.0,
-      totalSales: 200,
-      createdAt: '7/22/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 4,
-      name: '4K Ultra HD Smart TV',
-      status: 'active',
-      price: 799.0,
-      totalSales: 50,
-      createdAt: '7/22/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 5,
-      name: 'Gaming Laptop Pro',
-      status: 'active',
-      price: 1299.0,
-      totalSales: 75,
-      createdAt: '7/22/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 6,
-      name: 'Portable Bluetooth Speaker',
-      status: 'draft',
-      price: 89.99,
-      totalSales: 120,
-      createdAt: '7/21/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 7,
-      name: 'Noise-Cancelling Headphones',
-      status: 'archived',
-      price: 249.99,
-      totalSales: 60,
-      createdAt: '7/20/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 8,
-      name: 'Smartwatch Series Z',
-      status: 'active',
-      price: 329.0,
-      totalSales: 180,
-      createdAt: '7/19/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 9,
-      name: 'Wireless Charging Pad',
-      status: 'draft',
-      price: 59.99,
-      totalSales: 90,
-      createdAt: '7/18/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 10,
-      name: 'Ultra Slim Laptop Stand',
-      status: 'archived',
-      price: 39.99,
-      totalSales: 200,
-      createdAt: '7/17/2025',
-      image: 'https://placehold.co/40x40',
-    },
+  private readonly STORAGE_KEY = 'products';
 
+  private productsSubject = new BehaviorSubject<Product[]>(this.loadProducts());
+  products$ = this.productsSubject.asObservable();
 
-  ]);
+  constructor() {}
 
-  products$ = this._products.asObservable();
-
-  get products(): Product[] {
-    return this._products.value;
+  private loadProducts(): Product[] {
+    const saved = localStorage.getItem(this.STORAGE_KEY);
+    if (saved) {
+      return JSON.parse(saved);
+    }
+    // Default data
+    return [];
   }
 
-  updateProducts(newProducts: Product[]) {
-    this._products.next(newProducts);
+  private saveProducts(products: Product[]) {
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(products));
+  }
+
+  private editingProductSubject = new BehaviorSubject<Product | null>(null);
+  editingProduct$ = this.editingProductSubject.asObservable();
+
+  startEditing(product: Product) {
+    this.editingProductSubject.next(product);
+  }
+
+  stopEditing() {
+    this.editingProductSubject.next(null);
+  }
+
+  updateProduct(updated: Product) {
+    const current = this.productsSubject.getValue();
+    const index = current.findIndex((p) => p.id === updated.id);
+    if (index !== -1) {
+      current[index] = { ...updated };
+      this.productsSubject.next([...current]);
+      this.saveProducts(current);
+    }
+  }
+
+  getProductById(id: number): Product | undefined {
+    return this.productsSubject.getValue().find((p) => p.id === id);
+  }
+  addProduct(product: Product) {
+    const current = this.productsSubject.getValue();
+    const newProduct = { ...product, id: current.length + 1 };
+    const updated = [...current, newProduct];
+
+    this.productsSubject.next(updated);
+    this.saveProducts(updated); // ✅ persist to localStorage
+  }
+
+  deleteProduct(id: number) {
+    const current = this.productsSubject.getValue();
+    const updated = current.filter((product) => product.id !== id);
+
+    this.productsSubject.next(updated);
+    this.saveProducts(updated); // persist the change
   }
 }

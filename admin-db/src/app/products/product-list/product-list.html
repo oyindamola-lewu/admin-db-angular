@@ -1,9 +1,10 @@
 <div class="products-container">
+  <router-outlet></router-outlet>
   <div class="header">
     <h1>Products</h1>
     <p>Manage your products and view their sales performance.</p>
   </div>
-  
+
   <div class="table-container">
     <!-- Desktop/Tablet Table View -->
     <table>
@@ -19,28 +20,50 @@
       </thead>
       <tbody>
         @for (product of filteredProducts; track product.id) {
-          <tr>
-            <td class="product-name">
-              <img
-                [src]="product.image"
-                [alt]="product.name"
-                class="product-image"
-              />
-              <span class="product-title">{{ product.name }}</span>
-            </td>
-            <td class="status">
-              <span
-                class="status-badge"
-                [class.inactive]="product.status === 'draft'"
+        <tr>
+          <td class="product-name">
+            <img
+              [src]="product.image"
+              [alt]="product.name"
+              class="product-image"
+            />
+            <span class="product-title">{{ product.name }}</span>
+          </td>
+          <td class="status">
+            <span
+              class="status-badge"
+              [class.inactive]="
+                product.status === 'draft' || product.status === 'archived'
+              "
+            >
+              {{ product.status }}
+            </span>
+          </td>
+          <td class="price">{{ formatPrice(product.price) }}</td>
+          <td class="sales">{{ product.totalSales }}</td>
+          <td class="created-at">{{ formatDate(product.createdAt) }}</td>
+          <td class="actions" (click)="toggleMenu(product.id)">
+            ⋯ @if (openMenuProductId === product.id) {
+            <div
+              class="dropdown-menu"
+              [class.show]="openMenuProductId === product.id"
+            >
+              <button
+                class="dropdown-item delete"
+                (click)="deleteProduct(product.id)"
               >
-                {{ product.status }}
-              </span>
-            </td>
-            <td class="price">{{ formatPrice(product.price) }}</td>
-            <td class="sales">{{ product.totalSales }}</td>
-            <td class="created-at">{{ formatDate(product.createdAt) }}</td>
-            <td class="actions" (click)="onProductAction(product)">⋯</td>
-          </tr>
+                Delete
+              </button>
+              <button
+                class="dropdown-item edit"
+                (click)="editProduct(product.id)"
+              >
+                Edit
+              </button>
+            </div>
+            }
+          </td>
+        </tr>
         }
       </tbody>
     </table>
@@ -48,44 +71,48 @@
     <!-- Mobile Card View -->
     <div class="mobile-cards">
       @for (product of filteredProducts; track product.id) {
-        <div class="product-card">
-          <div class="product-header">
-            <img
-              [src]="product.image"
-              [alt]="product.name"
-              class="product-image"
-            />
-            <div class="product-info">
-              <div class="product-title">{{ product.name }}</div>
-              <span
-                class="status-badge"
-                [class.inactive]="product.status === 'draft'"
-              >
-                {{ product.status }}
-              </span>
-            </div>
-            <div class="actions" (click)="onProductAction(product)">⋯</div>
+      <div class="product-card">
+        <div class="product-header">
+          <img
+            [src]="product.image"
+            [alt]="product.name"
+            class="product-image"
+          />
+          <div class="product-info">
+            <div class="product-title">{{ product.name }}</div>
+            <span
+              class="status-badge"
+              [class.inactive]="
+                product.status === 'draft' || product.status === 'archived'
+              "
+            >
+              {{ product.status }}
+            </span>
           </div>
-          
-          <div class="product-details">
-            <div class="detail-item">
-              <div class="label">Price</div>
-              <div class="value">{{ formatPrice(product.price) }}</div>
-            </div>
-            <div class="detail-item">
-              <div class="label">Total Sales</div>
-              <div class="value">{{ product.totalSales }}</div>
-            </div>
-            <div class="detail-item">
-              <div class="label">Created</div>
-              <div class="value created-at">{{ formatDate(product.createdAt) }}</div>
+          <div class="actions" (click)="onProductAction(product)">⋯</div>
+        </div>
+
+        <div class="product-details">
+          <div class="detail-item">
+            <div class="label">Price</div>
+            <div class="value">{{ formatPrice(product.price) }}</div>
+          </div>
+          <div class="detail-item">
+            <div class="label">Total Sales</div>
+            <div class="value">{{ product.totalSales }}</div>
+          </div>
+          <div class="detail-item">
+            <div class="label">Created</div>
+            <div class="value created-at">
+              {{ formatDate(product.createdAt) }}
             </div>
           </div>
         </div>
+      </div>
       }
     </div>
   </div>
-  
+
   <div class="pagination">
     <div class="pagination-info">
       {{ paginationInfo }}
@@ -109,5 +136,4 @@
       </button>
     </div>
   </div>
-
 </div>

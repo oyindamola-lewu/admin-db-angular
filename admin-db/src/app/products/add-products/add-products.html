@@ -1,20 +1,22 @@
 <div class="content">
-      <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
   <div class="form-card">
     <form class="form-grid" (submit)="submitForm($event)">
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label" for="name" [(ngModel)]="product.name">Product Name</label>
+          <label class="form-label" for="name">Product Name</label>
           <input
             type="text"
             id="name"
             class="form-input"
             placeholder="Enter product name"
             required
+            [(ngModel)]="newProduct.name"
+            name="name"
           />
         </div>
         <div class="form-group">
-          <label class="form-label" for="price" [(ngModel)]="product.price">Price ($)</label>
+          <label class="form-label" for="price">Price ($)</label>
           <input
             type="number"
             id="price"
@@ -23,6 +25,8 @@
             step="0.01"
             min="0"
             required
+            [(ngModel)]="newProduct.price"
+            name="price"
           />
         </div>
       </div>
@@ -30,7 +34,13 @@
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="status">Status</label>
-          <select id="status" class="form-select" required>
+          <select
+            id="status"
+            class="form-select"
+            required
+            [(ngModel)]="newProduct.status"
+            name="status"
+          >
             <option value="">Select status</option>
             <option value="active">Active</option>
             <option value="draft">Draft</option>
@@ -45,7 +55,8 @@
             class="form-input"
             placeholder="0"
             min="0"
-            value="0"
+            [(ngModel)]="newProduct.totalSales"
+            name="totalSales"
           />
         </div>
       </div>
@@ -76,7 +87,9 @@
       </div>
 
       <div class="form-actions">
-        <button routerLink="/" type="button" class="btn btn-secondary">Cancel</button>
+        <button type="button" class="btn btn-secondary" (click)="cancelForm()">
+          Cancel
+        </button>
         <button type="submit" class="btn btn-primary">
           <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
             <path
@@ -85,7 +98,7 @@
               clip-rule="evenodd"
             />
           </svg>
-          Add Product
+  {{ submitButtonText }}
         </button>
       </div>
     </form>

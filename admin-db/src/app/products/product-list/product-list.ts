@@ -1,145 +1,34 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
-import { Input } from '@angular/core';
-
-interface Product {
-  id: number;
-  name: string;
-  status: 'active' | 'draft' | 'archived';
-  price: number;
-  totalSales: number;
-  createdAt: string;
-  image: string;
-}
+import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { ProductService, Product } from '../../services/product';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-products',
   templateUrl: './product-list.html',
   styleUrls: ['./product-list.scss'],
-
+  imports: [RouterModule],
 })
 export class ProductListComponent implements OnInit {
   @Input() selectedStatusFilter: string | null = null;
   @Input() searchQuery: string = '';
 
+  products: Product[] = [];
 
-  get filteredProducts() {
-    let filtered = this.products;
-
-    if (this.selectedStatusFilter && this.selectedStatusFilter !== 'all') {
-      filtered = filtered.filter(
-        (p) =>
-          p.status.toLowerCase() === this.selectedStatusFilter!.toLowerCase()
-      );
-    }
-
-    if (this.searchQuery) {
-      filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
-    }
-
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
-
-    return filtered.slice(start, end);
-  }
-
-  products: Product[] = [
-    {
-      id: 1,
-      name: 'Smartphone X Pro',
-      status: 'active',
-      price: 999.0,
-      totalSales: 150,
-      createdAt: '7/22/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 2,
-      name: 'Wireless Earbuds Ultra',
-      status: 'active',
-      price: 199.0,
-      totalSales: 300,
-      createdAt: '7/22/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 3,
-      name: 'Smart Home Hub',
-      status: 'active',
-      price: 149.0,
-      totalSales: 200,
-      createdAt: '7/22/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 4,
-      name: '4K Ultra HD Smart TV',
-      status: 'active',
-      price: 799.0,
-      totalSales: 50,
-      createdAt: '7/22/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 5,
-      name: 'Gaming Laptop Pro',
-      status: 'active',
-      price: 1299.0,
-      totalSales: 75,
-      createdAt: '7/22/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 6,
-      name: 'Portable Bluetooth Speaker',
-      status: 'draft',
-      price: 89.99,
-      totalSales: 120,
-      createdAt: '7/21/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 7,
-      name: 'Noise-Cancelling Headphones',
-      status: 'archived',
-      price: 249.99,
-      totalSales: 60,
-      createdAt: '7/20/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 8,
-      name: 'Smartwatch Series Z',
-      status: 'active',
-      price: 329.0,
-      totalSales: 180,
-      createdAt: '7/19/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 9,
-      name: 'Wireless Charging Pad',
-      status: 'draft',
-      price: 59.99,
-      totalSales: 90,
-      createdAt: '7/18/2025',
-      image: 'https://placehold.co/40x40',
-    },
-    {
-      id: 10,
-      name: 'Ultra Slim Laptop Stand',
-      status: 'archived',
-      price: 39.99,
-      totalSales: 200,
-      createdAt: '7/17/2025',
-      image: 'https://placehold.co/40x40',
-    },
-  ];
-
-  // Pagination properties
   currentPage: number = 1;
   itemsPerPage: number = 5;
+
+  constructor(private productService: ProductService, private router: Router) {}
+
+editProduct(productId: number) {
+  this.router.navigate(['/add-products', productId]); // navigate with ID
+  this.closeMenu();
+}
+
+  ngOnInit(): void {
+    this.productService.products$.subscribe((products) => {
+      this.products = products;
+    });
+  }
   get totalItems(): number {
     if (!this.selectedStatusFilter || this.selectedStatusFilter === 'all') {
       return this.products.length;
@@ -148,10 +37,21 @@ export class ProductListComponent implements OnInit {
       (p) => p.status.toLowerCase() === this.selectedStatusFilter?.toLowerCase()
     ).length;
   }
-  constructor() {}
 
-  ngOnInit(): void {
-    // Initialize component
+  get filteredProducts(): Product[] {
+    return this.products.filter((product) => {
+      const matchesStatus =
+        !this.selectedStatusFilter ||
+        this.selectedStatusFilter === 'all' ||
+        product.status.toLowerCase() ===
+          this.selectedStatusFilter.toLowerCase();
+
+      const matchesSearch =
+        !this.searchQuery ||
+        product.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+
+      return matchesStatus && matchesSearch;
+    });
   }
 
   formatPrice(price: number): string {
@@ -173,6 +73,30 @@ export class ProductListComponent implements OnInit {
     if (this.currentPage < totalPages) {
       this.currentPage++;
     }
+  }
+  // Track the product whose menu is open
+  openMenuProductId: number | null = null;
+
+  toggleMenu(productId: number) {
+    if (this.openMenuProductId === productId) {
+      this.closeMenu();
+    } else {
+      this.openMenuProductId = productId;
+    }
+  }
+
+  closeMenu() {
+    this.openMenuProductId = null;
+  }
+
+  deleteProduct(productId: number) {
+    this.productService.deleteProduct(productId);
+    this.closeMenu();
+  }
+
+  updateProduct(updated: Product) {
+    this.productService.updateProduct(updated);
+    this.closeMenu();
   }
 
   onProductAction(product: Product): void {
@@ -196,5 +120,13 @@ export class ProductListComponent implements OnInit {
   get canGoForward(): boolean {
     const totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
     return this.currentPage < totalPages;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.actions') && !target.closest('.dropdown-menu')) {
+      this.closeMenu();
+    }
   }
 }
