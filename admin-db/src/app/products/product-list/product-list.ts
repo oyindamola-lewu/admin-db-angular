@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Input } from '@angular/core';
 
 interface Product {
@@ -15,9 +15,12 @@ interface Product {
   selector: 'app-products',
   templateUrl: './product-list.html',
   styleUrls: ['./product-list.scss'],
+
 })
 export class ProductListComponent implements OnInit {
   @Input() selectedStatusFilter: string | null = null;
+  @Input() searchQuery: string = '';
+
 
   get filteredProducts() {
     let filtered = this.products;
@@ -26,6 +29,12 @@ export class ProductListComponent implements OnInit {
       filtered = filtered.filter(
         (p) =>
           p.status.toLowerCase() === this.selectedStatusFilter!.toLowerCase()
+      );
+    }
+
+    if (this.searchQuery) {
+      filtered = filtered.filter(product =>
+        product.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     }
 

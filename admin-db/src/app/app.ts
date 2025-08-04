@@ -10,7 +10,7 @@ import { DashboardHeader } from './layout/dashboard-header/dashboard-header';
     Sidebar,
     Header,
     DashboardHeader,
-    ProductListComponent,
+    ProductListComponent, RouterOutlet
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',

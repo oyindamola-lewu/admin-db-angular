@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-
+import { RouterModule } from '@angular/router';
 export interface Tab {
   key: string;
   label: string;
 }
 
 @Component({
+  imports: [RouterModule],
   selector: 'app-dashboard-header',
   templateUrl: './dashboard-header.html',
   styleUrls: ['./dashboard-header.scss'],

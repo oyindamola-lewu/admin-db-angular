@@ -1,0 +1,93 @@
+<div class="content">
+      <router-outlet></router-outlet>
+  <div class="form-card">
+    <form class="form-grid" (submit)="submitForm($event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="name" [(ngModel)]="product.name">Product Name</label>
+          <input
+            type="text"
+            id="name"
+            class="form-input"
+            placeholder="Enter product name"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="price" [(ngModel)]="product.price">Price ($)</label>
+          <input
+            type="number"
+            id="price"
+            class="form-input"
+            placeholder="0.00"
+            step="0.01"
+            min="0"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="status">Status</label>
+          <select id="status" class="form-select" required>
+            <option value="">Select status</option>
+            <option value="active">Active</option>
+            <option value="draft">Draft</option>
+            <option value="archived">Archived</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="totalSales">Initial Sales Count</label>
+          <input
+            type="number"
+            id="totalSales"
+            class="form-input"
+            placeholder="0"
+            min="0"
+            value="0"
+          />
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+        <label class="form-label">Product Image</label>
+        <div
+          class="image-upload"
+          onclick="document.getElementById('image').click()"
+        >
+          <input type="file" id="image" accept="image/*" />
+          <svg
+            class="upload-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 48 48"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+            />
+          </svg>
+          <div class="upload-text">Click to upload product image</div>
+          <div class="upload-subtext">PNG, JPG, GIF up to 10MB</div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button routerLink="/" type="button" class="btn btn-secondary">Cancel</button>
+        <button type="submit" class="btn btn-primary">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Add Product
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

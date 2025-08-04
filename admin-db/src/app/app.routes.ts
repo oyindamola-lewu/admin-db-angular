@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
-import { ProductListComponent } from './products/product-list/product-list';
+import { AddProducts } from './products/add-products/add-products';
+
 
 export const routes: Routes = [
-  { path: '', component: ProductListComponent }
+  { path: '', redirectTo: '', pathMatch: 'full' },
+   { path: 'add-products', component: AddProducts },
+  { path: '**', redirectTo: '' }, // wildcard for 404
 ];
