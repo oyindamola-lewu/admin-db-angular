@@ -37,11 +37,9 @@
   }
   
   &.active {
-    background-color: #1a202c;
+    background-color: #ffebf8fd;
     
-    .nav-icon {
-      filter: brightness(0) invert(1);
-    }
+
     
     &::before {
       content: '';
