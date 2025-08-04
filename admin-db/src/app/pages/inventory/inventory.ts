@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet, Router } from '@angular/router';
-import { ProductListComponent } from '../product-list/product-list';
+import { RouterOutlet, Router, RouterModule } from '@angular/router';
+import { ProductListComponent } from '../../products/product-list/product-list';
 import { DashboardHeader } from '../../layout/dashboard-header/dashboard-header';
 
 @Component({
@@ -8,10 +8,10 @@ import { DashboardHeader } from '../../layout/dashboard-header/dashboard-header'
   imports: [
 
     DashboardHeader,
-    ProductListComponent, RouterOutlet
+    ProductListComponent, RouterModule
   ],
-  templateUrl: './dashboard.html',
-  styleUrl: './dashboard.scss',
+  templateUrl: './inventory.html',
+  styleUrl: './inventory.scss',
     standalone: true,
 
 })

@@ -1,274 +1,250 @@
+<div class="container">
+  <!-- Sidebar -->
+  <div class="main">
+    <div class="settings-grid">
+      <!-- Profile Information -->
+      <div class="settings-card">
+        <div class="card-header">
+          <h3 class="card-title">Profile Information</h3>
+          <p class="card-description">
+            Update your personal and business information
+          </p>
+        </div>
+        <div class="card-content">
+          <div class="profile-image-container">
+            <div class="profile-image">
+              {{ (user.firstName?.charAt(0) || '?') + (user.lastName?.charAt(0) || '?') }}
+            </div>
+            <div class="image-actions">
+              <button class="btn btn-secondary btn-sm">Add Photo</button>
+              <button class="btn btn-secondary btn-sm">Remove</button>
+            </div>
+          </div>
 
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="main">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First Name</label>
+              <input
+                type="text"
+                class="form-input"
+                [(ngModel)]="user.firstName"
+                placeholder="Enter first name"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name</label>
+              <input
+                type="text"
+                class="form-input"
+                [(ngModel)]="user.lastName"
+                placeholder="Enter last name"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input
+              type="email"
+              class="form-input"
+              [(ngModel)]="user.email"
+              placeholder="Enter email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input
+              type="tel"
+              class="form-input"
+              [(ngModel)]="user.phone"
+              placeholder="Enter phone number"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Bio</label>
+            <textarea
+              class="form-input form-textarea"
+              [(ngModel)]="user.bio"
+              placeholder="Tell customers about yourself and your business..."
+            ></textarea>
+          </div>
+          <div class="save-button-container">
+            <button 
+  class="btn btn-primary save-button"
+  [disabled]="isProfileUnchanged"
+  (click)="saveProfile()"
+>
+  Save Changes
+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Business Information -->
+      <div class="settings-card">
+        <div class="card-header">
+          <h3 class="card-title">Business Information</h3>
+          <p class="card-description">
+            Manage your business details and verification status
+          </p>
+        </div>
+        <div class="card-content">
+          <div class="form-group">
+            <label class="form-label">Business Name</label>
+            <input
+              type="text"
+              class="form-input"
+              [(ngModel)]="user.businessName"
+              placeholder="Enter business name"
+            />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Business Type</label>
+              <select class="form-input form-select" [(ngModel)]="user.businessType">
+                <option>Individual Seller</option>
+                <option>LLC</option>
+                <option>Corporation</option>
+                <option>Partnership</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tax ID</label>
+              <input
+                type="text"
+                class="form-input"
+                [(ngModel)]="user.taxId"
+                placeholder="Enter tax ID"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Business Address</label>
+            <input
+              type="text"
+              class="form-input"
+              [(ngModel)]="user.businessAddress"
+              placeholder="Street address"
+            />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">City</label>
+              <input
+                type="text"
+                class="form-input"
+                [(ngModel)]="user.city"
+                placeholder="City"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">State</label>
+              <select class="form-input form-select" [(ngModel)]="user.state">
+                <option>Select state</option>
+                <option>Lagos</option>
+                <option>Abuja</option>
+                <option>Port Harcourt</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">ZIP Code</label>
+            <input
+              type="text"
+              class="form-input"
+              [(ngModel)]="user.zipCode"
+              placeholder="ZIP code"
+            />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Verification Status</label>
+              <div style="padding-top: 12px">
+                <span class="status-badge status-verified">Verified</span>
+              </div>
+            </div>
+          </div>
+          <div class="save-button-container">
+<button 
+  class="btn btn-primary save-button"
+  [disabled]="isBusinessUnchanged"
+  (click)="saveBusiness()"
+>
+  Save Changes
+</button>
+          </div>
+        </div>
+      </div>
 
 
-            <div class="settings-grid">
-                <!-- Profile Information -->
-                <div class="settings-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Profile Information</h3>
-                        <p class="card-description">Update your personal and business information</p>
-                    </div>
-                    <div class="card-content">
-                        <div class="profile-image-container">
-                            <div class="profile-image">JD</div>
-                            <div class="image-actions">
-                                <button class="btn btn-secondary btn-sm">Change Photo</button>
-                                <button class="btn btn-secondary btn-sm">Remove</button>
-                            </div>
-                        </div>
+    <!-- Payment & Banking -->
+    <div class="settings-card">
+      <div class="card-header">
+        <h3 class="card-title">Payment & Banking</h3>
+        <p class="card-description">
+          Manage your payment methods and payout settings
+        </p>
+      </div>
+      <div class="card-content">
+        <div class="form-group">
+          <label class="form-label">Bank Account</label>
+          <div style="display: flex; align-items: center; gap: 12px">
+            <input
+              type="text"
+              class="form-input"
+              [(ngModel)]="user.bankAccount"
+              placeholder="Account number"
+              style="flex: 1"
+            />
+          </div>
+        </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">First Name</label>
-                                <input type="text" class="form-input" value="John" placeholder="Enter first name">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" class="form-input" value="Doe" placeholder="Enter last name">
-                            </div>
-                        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Bank</label>
+            <input
+              type="text"
+              class="form-input"
+              [(ngModel)]="user.bank"
+              placeholder="Bank"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Account Type</label>
+            <select class="form-input form-select" [(ngModel)]="user.accountType">
+              <option>Checking</option>
+              <option>Savings</option>
+            </select>
+          </div>
+        </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" class="form-input" value="john.doe@example.com" placeholder="Enter email">
-                        </div>
+        <div class="form-group">
+          <label class="form-label">Payout Schedule</label>
+          <select class="form-input form-select" [(ngModel)]="user.payoutSchedule">
+            <option>Daily</option>
+            <option>Weekly</option>
+            <option>Bi-weekly</option>
+            <option>Monthly</option>
+          </select>
+        </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Phone Number</label>
-                            <input type="tel" class="form-input" value="+1 (555) 123-4567" placeholder="Enter phone number">
-                        </div>
+        <div class="save-button-container">
+<button 
+  class="btn btn-primary save-button"
+  [disabled]="isBankingUnchanged"
+  (click)="saveBanking()"
+>
+  Save Changes
+</button>
+        </div>
+      </div>
+    </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Bio</label>
-                            <textarea class="form-input form-textarea" placeholder="Tell customers about yourself and your business...">Passionate seller with 5+ years of experience in electronics and gadgets.</textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Business Information -->
-                <div class="settings-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Business Information</h3>
-                        <p class="card-description">Manage your business details and verification status</p>
-                    </div>
-                    <div class="card-content">
-                        <div class="form-group">
-                            <label class="form-label">Business Name</label>
-                            <input type="text" class="form-input" value="TechGear Solutions" placeholder="Enter business name">
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Business Type</label>
-                                <select class="form-input form-select">
-                                    <option>Individual Seller</option>
-                                    <option selected>LLC</option>
-                                    <option>Corporation</option>
-                                    <option>Partnership</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Tax ID</label>
-                                <input type="text" class="form-input" value="12-3456789" placeholder="Enter tax ID">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Business Address</label>
-                            <input type="text" class="form-input" value="123 Commerce St" placeholder="Street address">
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">City</label>
-                                <input type="text" class="form-input" value="New York" placeholder="City">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">State</label>
-                                <select class="form-input form-select">
-                                    <option>Select state</option>
-                                    <option selected>New York</option>
-                                    <option>California</option>
-                                    <option>Texas</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">ZIP Code</label>
-                                <input type="text" class="form-input" value="10001" placeholder="ZIP code">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Verification Status</label>
-                                <div style="padding-top: 12px;">
-                                    <span class="status-badge status-verified">Verified</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Store Settings -->
-                <div class="settings-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Store Settings</h3>
-                        <p class="card-description">Configure your store preferences and policies</p>
-                    </div>
-                    <div class="card-content">
-                        <div class="form-group">
-                            <label class="form-label">Store Name</label>
-                            <input type="text" class="form-input" value="TechGear Hub" placeholder="Enter store name">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Store Description</label>
-                            <textarea class="form-input form-textarea" placeholder="Describe your store...">Your one-stop shop for the latest electronics, gadgets, and tech accessories. We offer premium quality products with excellent customer service.</textarea>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Return Policy (days)</label>
-                                <select class="form-input form-select">
-                                    <option>7 days</option>
-                                    <option>14 days</option>
-                                    <option selected>30 days</option>
-                                    <option>60 days</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Processing Time</label>
-                                <select class="form-input form-select">
-                                    <option selected>1-2 business days</option>
-                                    <option>2-3 business days</option>
-                                    <option>3-5 business days</option>
-                                    <option>5-7 business days</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Shipping From</label>
-                            <input type="text" class="form-input" value="New York, NY" placeholder="Shipping location">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Notification Settings -->
-                <div class="settings-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Notification Preferences</h3>
-                        <p class="card-description">Choose how you want to receive notifications</p>
-                    </div>
-                    <div class="card-content">
-                        <div class="toggle-group">
-                            <div class="toggle-info">
-                                <h4>Order Notifications</h4>
-                                <p>Get notified when you receive new orders</p>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" class="toggle-input" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-
-                        <div class="toggle-group">
-                            <div class="toggle-info">
-                                <h4>Payment Notifications</h4>
-                                <p>Receive alerts for payment confirmations</p>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" class="toggle-input" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-
-                        <div class="toggle-group">
-                            <div class="toggle-info">
-                                <h4>Inventory Alerts</h4>
-                                <p>Get notified when products are low in stock</p>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" class="toggle-input" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-
-                        <div class="toggle-group">
-                            <div class="toggle-info">
-                                <h4>Marketing Updates</h4>
-                                <p>Receive promotional tips and platform updates</p>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" class="toggle-input">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-
-                        <div class="toggle-group">
-                            <div class="toggle-info">
-                                <h4>Customer Messages</h4>
-                                <p>Get notified of new customer inquiries</p>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" class="toggle-input" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Payment & Banking -->
-                <div class="settings-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Payment & Banking</h3>
-                        <p class="card-description">Manage your payment methods and payout settings</p>
-                    </div>
-                    <div class="card-content">
-                        <div class="form-group">
-                            <label class="form-label">Bank Account</label>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <input type="text" class="form-input" value="****1234" placeholder="Account number" style="flex: 1;">
-                                <span class="status-badge status-verified">Verified</span>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Routing Number</label>
-                                <input type="text" class="form-input" value="021000021" placeholder="Routing number">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Account Type</label>
-                                <select class="form-input form-select">
-                                    <option selected>Checking</option>
-                                    <option>Savings</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Payout Schedule</label>
-                            <select class="form-input form-select">
-                                <option>Daily</option>
-                                <option selected>Weekly</option>
-                                <option>Bi-weekly</option>
-                                <option>Monthly</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Tax Forms</label>
-                            <div class="upload-area">
-                                <div class="upload-icon"></div>
-                                <p><strong>Click to upload</strong> or drag and drop</p>
-                                <p style="font-size: 12px; color: #64748b; margin-top: 4px;">W-9, 1099 forms (PDF, max 10MB)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Security Settings -->
+  </div>
+</div>

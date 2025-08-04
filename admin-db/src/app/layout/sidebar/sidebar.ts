@@ -6,7 +6,7 @@ import { Router, RouterOutlet, RouterModule } from '@angular/router';
   selector: 'app-sidebar',
   templateUrl: './sidebar.html',
   styleUrls: ['./sidebar.scss'],
-  imports: [RouterOutlet, RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule],
 })
 export class Sidebar implements OnInit {
   navItems = [
@@ -17,7 +17,7 @@ export class Sidebar implements OnInit {
       active: false,
     },
     { icon: '/home.png', route: '/home', label: 'Home', active: false },
-    { icon: '/cart.png', route: '/shop', label: 'Shop', active: false },
+    { icon: '/cart.png', route: '/carts', label: 'Carts', active: false },
     {
       icon: '/products.png',
       route: '/inventory',
