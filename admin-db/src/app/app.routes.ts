@@ -11,8 +11,8 @@ export const routes: Routes = [
   { path: 'inventory', component: ProductsHome },
     { path: 'carts', component: Carts },
   { path: 'add-products', component: AddProducts },
-  { path: 'add-products/:id', component: AddProducts }, // <-- for editing
+  { path: 'add-products/:id', component: AddProducts },
   { path: 'profile', component: Profile },
 
-  { path: '**', redirectTo: '' }, // wildcard for 404
+  { path: '**', redirectTo: '' },
 ];

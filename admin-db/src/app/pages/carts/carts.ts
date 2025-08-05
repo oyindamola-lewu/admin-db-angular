@@ -13,14 +13,13 @@ import { CartsService, Cart } from '../../services/carts';
 export class Carts implements OnInit {
   filters = ['All', 'Active', 'Idle', 'Checkout', 'Abandoned'];
   selectedFilter = 'All';
-  cartsList: Cart[] = []; // ✅ Use interface from service
+  cartsList: Cart[] = []; 
   currentPage: number = 1;
   itemsPerPage: number = 5;
 
   constructor(private cartsService: CartsService) {}
 
   ngOnInit() {
-    // Load initial carts from the service
     this.cartsList = this.cartsService.getCarts();
   }
 

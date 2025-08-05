@@ -25,7 +25,6 @@ export class ProductService {
     if (saved) {
       return JSON.parse(saved);
     }
-    // Default data
     return [];
   }
 
@@ -67,7 +66,7 @@ export class ProductService {
     const updated = [...current, newProduct];
 
     this.productsSubject.next(updated);
-    this.saveProducts(updated); // ✅ persist to localStorage
+    this.saveProducts(updated); 
   }
 
   deleteProduct(id: number) {
@@ -75,7 +74,7 @@ export class ProductService {
     const updated = current.filter((product) => product.id !== id);
 
     this.productsSubject.next(updated);
-    this.saveProducts(updated); // persist the change
+    this.saveProducts(updated);
   }
 
   getTotalRevenue(): number {

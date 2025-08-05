@@ -42,7 +42,7 @@ export class DashboardHeader {
         const csvContent = this.generateCSV(products);
         this.downloadCSV(csvContent, 'products.csv');
       })
-      .unsubscribe(); // quick one-time subscription
+      .unsubscribe(); 
   }
 
   private generateCSV(products: Product[]): string {

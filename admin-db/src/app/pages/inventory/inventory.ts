@@ -25,7 +25,7 @@ constructor(private router: Router) {
 }
   protected readonly title = signal('admin-db');
 
-  currentStatus: string = 'all'; // default
+  currentStatus: string = 'all'; 
 
   onTabChange(status: string) {
     this.currentStatus = status;

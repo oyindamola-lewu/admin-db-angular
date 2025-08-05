@@ -41,7 +41,6 @@ constructor() {
     this.user = JSON.parse(savedUser);
   }
 
-  // Store separate originals for each section
   this.profileOriginal = JSON.stringify(this.getProfileData());
   this.businessOriginal = JSON.stringify(this.getBusinessData());
   this.bankingOriginal = JSON.stringify(this.getBankingData());

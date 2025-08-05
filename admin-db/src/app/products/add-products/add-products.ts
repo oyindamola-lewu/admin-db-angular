@@ -37,7 +37,7 @@ export class AddProducts {
           this.newProduct = { ...product };
         }
       } else {
-        this.resetForm(); // normal add mode
+        this.resetForm(); 
       }
     });
   }
@@ -46,11 +46,9 @@ export class AddProducts {
     event.preventDefault();
 
     if (this.editingProduct) {
-      // Update existing product
       this.productService.updateProduct(this.newProduct as Product);
       this.productService.stopEditing();
     } else {
-      // Add new product
       this.productService.addProduct(this.newProduct as Product);
     }
 

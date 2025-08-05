@@ -19,7 +19,7 @@ export class ProductListComponent implements OnInit {
   constructor(private productService: ProductService, private router: Router) {}
 
 editProduct(productId: number) {
-  this.router.navigate(['/add-products', productId]); // navigate with ID
+  this.router.navigate(['/add-products', productId]); 
   this.closeMenu();
 }
 
@@ -73,7 +73,6 @@ editProduct(productId: number) {
       this.currentPage++;
     }
   }
-  // Track the product whose menu is open
   openMenuProductId: number | null = null;
 
   toggleMenu(productId: number) {
@@ -99,7 +98,6 @@ editProduct(productId: number) {
   }
 
   onProductAction(product: Product): void {
-    // Handle product actions (edit, delete, etc.)
     console.log('Action clicked for product:', product);
   }
 
