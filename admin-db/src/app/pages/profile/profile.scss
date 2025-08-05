@@ -13,8 +13,8 @@
 
         .container {
             display: flex;
-            height: 100vh;
-        }
+  height: 100vh;
+  overflow-y: scroll;        }
 .save-button-container {
   display: flex;
   justify-content: flex-end;

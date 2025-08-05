@@ -1,7 +1,7 @@
 .dashboard-container {
   display: flex;
-  height: 100vh;
-  background-color: #f9fafb;
+height: 100vh;
+    background-color: #f9fafb;
   font-family: 'Segoe UI', sans-serif;
 }
 
@@ -44,6 +44,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+
 
   .top-bar {
     display: flex;
@@ -90,7 +91,7 @@
 
   .page-content {
     flex-grow: 1;
-    overflow-y: scroll;
     margin-top: 20px;
+      height: 100vh;
   }
 }

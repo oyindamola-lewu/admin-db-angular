@@ -1,8 +1,10 @@
 .dashboard-home {
   padding: 24px;
   background: #f8fafc;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   color: #0f172a;
+  height: 100vh;
+  overflow-y: scroll;
 
   .kpi-row {
     display: grid;
@@ -74,6 +76,13 @@
         margin-bottom: 12px;
       }
     }
+  }
+
+  @media (max-width: 768px) {
+    .charts-row{
+      grid-template-columns: 1fr;
+    }
+
   }
 
   .top-products-list {

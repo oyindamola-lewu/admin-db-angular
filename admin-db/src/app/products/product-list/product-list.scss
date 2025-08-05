@@ -16,12 +16,12 @@ $hot-pink-light: #f9a8d4;
 $hot-pink-dark: #be185d;
 
 // Typography Scale
-$text-xs: 0.75rem;    // 12px
-$text-sm: 0.875rem;   // 14px
-$text-base: 1rem;     // 16px
-$text-lg: 1.125rem;   // 18px
-$text-xl: 1.25rem;    // 20px
-$text-2xl: 1.5rem;    // 24px
+$text-xs: 0.75rem; // 12px
+$text-sm: 0.875rem; // 14px
+$text-base: 1rem; // 16px
+$text-lg: 1.125rem; // 18px
+$text-xl: 1.25rem; // 20px
+$text-2xl: 1.5rem; // 24px
 
 // Spacing Scale
 $space-1: 0.25rem;
@@ -34,20 +34,22 @@ $space-8: 2rem;
 
 // Shadows
 $shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
 .products-container {
   margin: 0;
   padding: $space-6;
   background: $gray-50;
-  min-height: 100vh;
+  height: 100vh;
   max-width: 100vw;
-  overflow-x: auto;
+  overflow-y: scroll;
 
   .header {
     margin-bottom: $space-8;
-    
+
     h1 {
       font-size: $text-2xl;
       font-weight: 700;
@@ -70,6 +72,7 @@ $shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.
     border: 1px solid $gray-200;
     overflow: hidden;
     box-shadow: $shadow-md;
+      height: 100vh;
 
     table {
       width: 100%;
@@ -90,7 +93,7 @@ $shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.
           text-transform: uppercase;
           letter-spacing: 0.05em;
           white-space: nowrap;
-          
+
           &:first-child {
             min-width: 200px;
           }
@@ -156,7 +159,7 @@ $shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.
                 box-shadow: $shadow-sm;
 
                 &.inactive {
-                  background:$gray-300;
+                  background: $gray-300;
                   color: $gray-700;
                 }
               }
