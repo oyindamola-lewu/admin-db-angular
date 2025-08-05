@@ -9,243 +9,84 @@
                     </div>
                     <div class="page-actions">
                         <button class="btn btn-secondary">
+                            <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <polyline points="7,10 12,15 17,10" />
+        <line x1="12" y1="15" x2="12" y2="3" />
+      </svg>
                             <i class="fas fa-download"></i>
                             Export
                         </button>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-envelope"></i>
-                            Send Reminders
-                        </button>
+
                     </div>
                 </div>
 
                 <!-- Filters -->
                 <div class="filters">
-                    <button class="filter-btn active">All</button>
-                    <button class="filter-btn">Recent</button>
-                    <button class="filter-btn">High Value</button>
-                    <button class="filter-btn">Abandoned</button>
+                  <button
+                    *ngFor="let filter of filters"
+                    class="filter-btn"
+                    [class.active]="selectedFilter === filter"
+                    (click)="setFilter(filter)">
+                    {{ filter }}
+                  </button>
                 </div>
 
                 <!-- Carts Table -->
                 <div class="table-container">
                     <table class="carts-table">
-                        <thead>
+                        <thead class="">
                             <tr>
                                 <th>CUSTOMER</th>
                                 <th>ITEMS</th>
-                                <th>CART VALUE</th>
-                                <th>LAST ACTIVITY</th>
-                                <th>STATUS</th>
+                                <th class="hide-on-tablet">CART VALUE</th>
+                                <th class="hide-on-desktop">LAST ACTIVITY</th>
+                                <th class="hide-on-mobile">STATUS</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="cart-row">
+                            <tr class="cart-row" *ngFor="let cart of filteredCarts">
                                 <td>
                                     <div class="customer-info">
                                         <div class="customer-avatar">
-                                            <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=ff69b4&color=fff" alt="Sarah Johnson">
+                                            <img [src]="cart.avatar" [alt]="cart.name">
                                         </div>
                                         <div class="customer-details">
-                                            <div class="customer-name">Sarah Johnson</div>
-                                            <div class="customer-email">sarah.j@email.com</div>
+                                            <div class="customer-name">{{ cart.name }}</div>
+                                            <div class="customer-email">{{ cart.email }}</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="cart-items">
-                                        <div class="item-preview">
-                                            <div class="item-image">📱</div>
-                                            <span class="item-name">iPhone 15</span>
+                                        <div class="item-preview" *ngFor="let item of cart.items">
+                                            <div class="item-image">{{ item.icon }}</div>
+                                            <span class="item-name">{{ item.name }}</span>
                                         </div>
-                                        <div class="item-preview">
-                                            <div class="item-image">🎧</div>
-                                            <span class="item-name">AirPods Pro</span>
-                                        </div>
-                                        <div class="items-count">+1 more</div>
+                                        <div class="items-count" *ngIf="cart.extraItems">+{{ cart.extraItems }} more</div>
                                     </div>
                                 </td>
-                                <td>
-                                    <div class="cart-value">$1,248.00</div>
+                                <td class="hide-on-tablet">
+                                    <div class="cart-value">{{ cart.value }}</div>
                                 </td>
-                                <td>
+                                <td class="hide-on-desktop">
                                     <div class="last-activity">
-                                        <div class="activity-time">2 minutes ago</div>
-                                        <div class="activity-action">Added item</div>
+                                        <div class="activity-time">{{ cart.lastActivity.time }}</div>
+                                        <div class="activity-action">{{ cart.lastActivity.action }}</div>
                                     </div>
                                 </td>
-                                <td>
-                                    <span class="status-badge status-active">ACTIVE</span>
-                                </td>
-                                <td>
-                                    <button class="action-btn">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr class="cart-row">
-                                <td>
-                                    <div class="customer-info">
-                                        <div class="customer-avatar">
-                                            <img src="https://ui-avatars.com/api/?name=Mike+Chen&background=4a90e2&color=fff" alt="Mike Chen">
-                                        </div>
-                                        <div class="customer-details">
-                                            <div class="customer-name">Mike Chen</div>
-                                            <div class="customer-email">mike.chen@email.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cart-items">
-                                        <div class="item-preview">
-                                            <div class="item-image">📱</div>
-                                            <span class="item-name">iPhone 13</span>
-                                        </div>
-                                        <div class="item-preview">
-                                            <div class="item-image">⌚</div>
-                                            <span class="item-name">Apple Watch</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cart-value">$1,099.00</div>
-                                </td>
-                                <td>
-                                    <div class="last-activity">
-                                        <div class="activity-time">15 minutes ago</div>
-                                        <div class="activity-action">Viewed cart</div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="status-badge status-idle">IDLE</span>
-                                </td>
-                                <td>
-                                    <button class="action-btn">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr class="cart-row">
-                                <td>
-                                    <div class="customer-info">
-                                        <div class="customer-avatar">
-                                            <img src="https://ui-avatars.com/api/?name=Emma+Davis&background=50c878&color=fff" alt="Emma Davis">
-                                        </div>
-                                        <div class="customer-details">
-                                            <div class="customer-name">Emma Davis</div>
-                                            <div class="customer-email">emma.d@email.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cart-items">
-                                        <div class="item-preview">
-                                            <div class="item-image">📱</div>
-                                            <span class="item-name">iPhone 16</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cart-value">$1,200.00</div>
-                                </td>
-                                <td>
-                                    <div class="last-activity">
-                                        <div class="activity-time">1 hour ago</div>
-                                        <div class="activity-action">Started checkout</div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="status-badge status-checkout">CHECKOUT</span>
-                                </td>
-                                <td>
-                                    <button class="action-btn">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr class="cart-row">
-                                <td>
-                                    <div class="customer-info">
-                                        <div class="customer-avatar">
-                                            <img src="https://ui-avatars.com/api/?name=James+Wilson&background=ff6b35&color=fff" alt="James Wilson">
-                                        </div>
-                                        <div class="customer-details">
-                                            <div class="customer-name">James Wilson</div>
-                                            <div class="customer-email">j.wilson@email.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cart-items">
-                                        <div class="item-preview">
-                                            <div class="item-image">📱</div>
-                                            <span class="item-name">iPhone 15</span>
-                                        </div>
-                                        <div class="item-preview">
-                                            <div class="item-image">💻</div>
-                                            <span class="item-name">MacBook Air</span>
-                                        </div>
-                                        <div class="items-count">+2 more</div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cart-value">$2,847.00</div>
-                                </td>
-                                <td>
-                                    <div class="last-activity">
-                                        <div class="activity-time">3 hours ago</div>
-                                        <div class="activity-action">Removed item</div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="status-badge status-abandoned">ABANDONED</span>
-                                </td>
-                                <td>
-                                    <button class="action-btn">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr class="cart-row">
-                                <td>
-                                    <div class="customer-info">
-                                        <div class="customer-avatar">
-                                            <img src="https://ui-avatars.com/api/?name=Lisa+Martinez&background=9b59b6&color=fff" alt="Lisa Martinez">
-                                        </div>
-                                        <div class="customer-details">
-                                            <div class="customer-name">Lisa Martinez</div>
-                                            <div class="customer-email">lisa.m@email.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cart-items">
-                                        <div class="item-preview">
-                                            <div class="item-image">📱</div>
-                                            <span class="item-name">iPhone 13</span>
-                                        </div>
-                                        <div class="item-preview">
-                                            <div class="item-image">📱</div>
-                                            <span class="item-name">iPhone 15</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cart-value">$1,690.00</div>
-                                </td>
-                                <td>
-                                    <div class="last-activity">
-                                        <div class="activity-time">45 minutes ago</div>
-                                        <div class="activity-action">Applied coupon</div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="status-badge status-active">ACTIVE</span>
+                                <td class="hide-on-mobile">
+                                    <span class="status-badge" [ngClass]="'status-' + cart.status.toLowerCase()">
+                                        {{ cart.status.toUpperCase() }}
+                                    </span>
                                 </td>
                                 <td>
                                     <button class="action-btn">
@@ -257,19 +98,62 @@
                     </table>
                 </div>
 
-                <!-- Pagination -->
-                <div class="pagination">
-                    <span class="pagination-info">Showing 1-5 of 12 active carts</span>
-                    <div class="pagination-controls">
-                        <button class="pagination-btn" disabled>
-                            <i class="fas fa-chevron-left"></i>
-                            Prev
-                        </button>
-                        <button class="pagination-btn">
-                            Next
-                            <i class="fas fa-chevron-right"></i>
+                <!-- Mobile Card Layout -->
+                <div class="cart-card">
+                    <div class="card-section" *ngFor="let cart of filteredCarts">
+                        <div class="customer-info">
+                            <div class="customer-avatar">
+                                <img [src]="cart.avatar" [alt]="cart.name">
+                            </div>
+                            <div class="customer-details">
+                                <div class="customer-name">{{ cart.name }}</div>
+                                <div class="customer-email">{{ cart.email }}</div>
+                            </div>
+                        </div>
+                        <div class="cart-items">
+                            <div class="item-preview" *ngFor="let item of cart.items">
+                                <div class="item-image">{{ item.icon }}</div>
+                                <span class="item-name">{{ item.name }}</span>
+                            </div>
+                            <div class="items-count" *ngIf="cart.extraItems">+{{ cart.extraItems }} more</div>
+                        </div>
+                        <div class="cart-value"><strong>Value:</strong> {{ cart.value }}</div>
+                        <div class="last-activity">
+                            <div class="activity-time"><strong>Last Activity:</strong> {{ cart.lastActivity.time }}</div>
+                            <div class="activity-action">{{ cart.lastActivity.action }}</div>
+                        </div>
+                        <span class="status-badge" [ngClass]="'status-' + cart.status.toLowerCase()">
+                            {{ cart.status.toUpperCase() }}
+                        </span>
+                        <button class="action-btn">
+                            <i class="fas fa-ellipsis-h"></i>
                         </button>
                     </div>
                 </div>
+
+                <!-- Pagination -->
+                 <div class="pagination">
+    <div class="pagination-info">
+      {{ paginationInfo }}
+    </div>
+    <div class="pagination-controls">
+      <button
+        class="pagination-btn"
+        [disabled]="!canGoBack"
+        (click)="onPreviousPage()"
+      >
+        <span class="arrow">‹</span>
+        Prev
+      </button>
+      <button
+        class="pagination-btn"
+        [disabled]="!canGoForward"
+        (click)="onNextPage()"
+      >
+        Next
+        <span class="arrow">›</span>
+      </button>
+    </div>
+  </div>
             </div>
     </div>

@@ -54,7 +54,7 @@ export class AddProducts {
       this.productService.addProduct(this.newProduct as Product);
     }
 
-    this.router.navigate(['/products']);
+    this.router.navigate(['/inventory']);
   }
 
   get submitButtonText(): string {
@@ -73,6 +73,6 @@ export class AddProducts {
   }
 
   cancelForm() {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/inventory']);
   }
 }

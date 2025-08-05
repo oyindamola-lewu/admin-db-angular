@@ -40,6 +40,10 @@ export class ProductService {
     this.editingProductSubject.next(product);
   }
 
+  getProducts() {
+  return this.productsSubject.getValue();
+}
+
   stopEditing() {
     this.editingProductSubject.next(null);
   }
@@ -72,5 +76,19 @@ export class ProductService {
 
     this.productsSubject.next(updated);
     this.saveProducts(updated); // persist the change
+  }
+
+  getTotalRevenue(): number {
+    const products = this.productsSubject.getValue();
+    return products.reduce(
+      (sum, p) => sum + p.price * p.totalSales,
+      0
+    );
+  }
+
+  /** Returns the number of active products (optional KPI helper) */
+  getActiveProductsCount(): number {
+    const products = this.productsSubject.getValue();
+    return products.filter(p => p.status === 'active').length;
   }
 }

@@ -1,0 +1,38 @@
+<div class="dashboard-home">
+
+  <!-- Row 1: KPI Cards -->
+  <div class="kpi-row">
+    <div class="kpi-card" *ngFor="let kpi of kpiMetrics">
+      <div class="kpi-title">{{ kpi.title }}</div>
+      <div class="kpi-value">{{ kpi.value }}</div>
+      <span class="kpi-badge" [ngClass]="kpi.trend">
+        {{ kpi.trend | uppercase }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Row 2: Charts -->
+  <div class="charts-row">
+<div class="quick-row">
+
+    <div class="alerts">
+      <h3>Notifications & Alerts</h3>
+      <ul>
+        <li *ngFor="let alert of alertsList">{{ alert }}</li>
+      </ul>
+    </div>
+  </div>
+    <div class="chart-card">
+      <h3 class="chart-title">Top Products</h3>
+      <ul class="top-products-list">
+        <li *ngFor="let product of topProducts">
+          <span class="product-name">{{ product.name }}</span>
+          <span class="product-sales">{{ product.totalSales }} sold</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Row 3: Quick Access & Alerts -->
+  
+</div>

@@ -10,12 +10,7 @@ import { Router, RouterOutlet, RouterModule } from '@angular/router';
 })
 export class Sidebar implements OnInit {
   navItems = [
-    {
-      icon: '/favicon.ico',
-      route: '/home',
-      label: 'Dashboard',
-      active: false,
-    },
+   
     { icon: '/home.png', route: '/home', label: 'Home', active: false },
     { icon: '/cart.png', route: '/carts', label: 'Carts', active: false },
     {
